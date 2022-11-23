@@ -1,1 +1,32 @@
-<p>manage-artist-profile works!</p>
+<section>
+    <div class="container-fluid">
+        <form action="">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-outline">
+                        <ng-select [items]="ArtistType" bindLabel="name" placeholder="Artist Type"
+                            [(ngModel)]="selectedArtistType">
+                        </ng-select>
+                        <!-- <label class="form-label">Select Country</label><span class="text-danger">*</span>
+                        <select class="form-select" aria-label="Default select example" formControlName="country">
+                        <option selected>Select Country</option>
+                        <option *ngFor="let data of countries" [value]="data.id">{{data.name}}</option>
+                      </select> -->
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-outline">
+                        <ng-select [items]="ArtistType" bindLabel="name" placeholder="Artist Type"
+                            [(ngModel)]="selectedArtistType">
+                        </ng-select>
+                        <!-- <label class="form-label">Select Country</label><span class="text-danger">*</span>
+                        <select class="form-select" aria-label="Default select example" formControlName="country">
+                        <option selected>Select Country</option>
+                        <option *ngFor="let data of countries" [value]="data.id">{{data.name}}</option>
+                      </select> -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
