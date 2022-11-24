@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-manage-artist-profile',
@@ -7,12 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageArtistProfileComponent implements OnInit {
   selectedArtistType:any;
-  ArtistType = [
+  artistProfileForm!:FormGroup;
+  artistType = [
     {id: 1, name: 'singer'},
     {id: 2, name: 'dj'},
     {id: 3, name: 'Instrument player'},
 ];
-  constructor() { }
+  constructor(private fb:FormBuilder) {
+    this.artistProfileForm=this.fb.group(
+      {
+        artistName:['',[Validators.required]],
+        artistType:['',[Validators.required]],
+        artistDescription:['',[Validators.required]],
+        performanceType:['',[Validators.required]],
+        weekdays1:['',[Validators.required]],
+        weekdays2:['',[Validators.required]],
+      }
+    )
+   }
 
   ngOnInit(): void {
   }

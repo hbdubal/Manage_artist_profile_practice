@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ManageArtistProfileRoutingModule } from './manage-artist-profile-routing.module';
 import { ManageArtistProfileComponent } from './manage-artist-profile.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ManageArtistProfileRoutingModule,
     NgSelectModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     ManageArtistProfileComponent
