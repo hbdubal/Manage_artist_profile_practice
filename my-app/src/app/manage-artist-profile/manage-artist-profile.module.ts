@@ -5,6 +5,8 @@ import { ManageArtistProfileRoutingModule } from './manage-artist-profile-routin
 import { ManageArtistProfileComponent } from './manage-artist-profile.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ManageArtistProfileService } from './manage-artist-profile.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,10 +18,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ManageArtistProfileRoutingModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports:[
     ManageArtistProfileComponent
+  ],
+  providers:[
+    ManageArtistProfileService
   ]
 })
 export class ManageArtistProfileModule { }

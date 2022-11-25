@@ -1,89 +1,122 @@
 <section>
     <div class="container-fluid">
-        <form [formGroup]="artistProfileForm">
+        <!-- Start: Form & It's Validation -->
+        <form [formGroup]="artistProfileForm" (ngSubmit)="submitDetails()">
+            <!-- Start: First Row of the Form -->
             <div class="row">
                 <div class="col-lg-6">
+                    <!-- Start: Artist Name -->
                     <div class="form-outline">
                         <label class="form-label">Artist Name</label><span class="text-danger">*</span>
-                        <input type="text" class="form-control"placeholder="Artist Name" formControlName="artistName" />
+                        <input type="text" class="form-control" placeholder="Artist Name" formControlName="artistName"
+                            [ngClass]="{'is-invalid': validator['artistName'].invalid &&  (isSubmitted || validator['artistName'].dirty || validator['artistName'].touched), 'is-valid': validator['artistName'].valid &&  (isSubmitted || validator['artistName'].dirty || validator['artistName'].touched)}" />
+                        <div
+                            *ngIf="validator['artistName'].invalid && (isSubmitted || validator['artistName'].dirty || validator['artistName'].touched)">
+                            <span class="text-danger" *ngIf="validator['artistName'].errors?.['required']">This field is
+                                required</span>
+                            <span class="text-danger" *ngIf="validator['artistName'].errors?.['maxlength']">Artist name
+                                must be less
+                                than 30 characters</span>
+                            <span class="text-danger" *ngIf="validator['artistName'].errors?.['pattern']">“Enter
+                                alphanumeric and @$!_&
+                                only</span>
+                        </div>
                     </div>
+                    <!-- End: Artist Name -->
                 </div>
                 <div class="col-lg-6">
+                    <!-- Start: Artist Type -->
                     <div class="form-outline">
                         <label class="form-label">Artist Type</label><span class="text-danger">*</span>
-                        <ng-select bindLabel="name" placeholder="Artist Type" formControlName="artistType">
+                        <ng-select bindLabel="name" placeholder="Artist Type" formControlName="artistType"
+                            [multiple]="true"
+                            [ngClass]="{'is-invalid': validator['artistType'].invalid &&  (isSubmitted || validator['artistType'].dirty || validator['artistType'].touched), 'is-valid': validator['artistType'].valid &&  (isSubmitted || validator['artistType'].dirty || validator['artistType'].touched)}">
                             <ng-option *ngFor="let artist of artistType">{{artist.name}}</ng-option>
                         </ng-select>
+                        <div
+                            *ngIf="validator['artistType'].invalid && (isSubmitted || validator['artistType'].dirty || validator['artistType'].touched)">
+                            <span class="text-danger" *ngIf="validator['artistType'].errors?.['required']">This field is
+                                required</span>
+                        </div>
                     </div>
+                    <!-- End: Artist Type -->
                 </div>
                 <div class="col-lg-6">
+                    <!-- Start: Artist Description -->
                     <div class="form-outline">
                         <label class="form-label">Artist Description</label><span class="text-danger">*</span>
-                        <input type="text" class="form-control"placeholder="Artist Description" formControlName="artistDescription"/>
+                        <input type="text" class="form-control" placeholder="Artist Description"
+                            formControlName="artistDescription"
+                            [ngClass]="{'is-invalid': validator['artistDescription'].invalid &&  (isSubmitted || validator['artistDescription'].dirty || validator['artistDescription'].touched), 'is-valid': validator['artistDescription'].valid &&  (isSubmitted || validator['artistDescription'].dirty || validator['artistDescription'].touched)}" />
+                        <div
+                            *ngIf="validator['artistDescription'].invalid && (isSubmitted || validator['artistDescription'].dirty || validator['artistDescription'].touched)">
+                            <span class="text-danger" *ngIf="validator['artistDescription'].errors?.['required']">This
+                                field is
+                                required</span>
+                            <span class="text-danger"
+                                *ngIf="validator['artistDescription'].errors?.['maxlength']">Artist name
+                                must be less
+                                than 250 characters</span>
+                        </div>
                     </div>
+                    <!-- End: Artist Description -->
                 </div>
                 <div class="col-lg-6">
                     <div class="form-outline">
                         <label class="form-label">Performance Type</label><span class="text-danger">*</span>
-                        <ng-select bindLabel="name" placeholder="Performance Type" [multiple]="false" formControlName="performanceType">
+                        <ng-select bindLabel="name" placeholder="Performance Type" [multiple]="true"
+                            formControlName="performanceType"
+                            [ngClass]="{'is-invalid': validator['performanceType'].invalid &&  (isSubmitted || validator['performanceType'].dirty || validator['performanceType'].touched), 'is-valid': validator['performanceType'].valid &&  (isSubmitted || validator['performanceType'].dirty || validator['performanceType'].touched)}">
                             <ng-option *ngFor="let artist of artistType">{{artist.name}}</ng-option>
                         </ng-select>
+                        <div
+                            *ngIf="validator['performanceType'].invalid && (isSubmitted || validator['performanceType'].dirty || validator['performanceType'].touched)">
+                            <span class="text-danger" *ngIf="validator['performanceType'].errors?.['required']">This
+                                field is
+                                required</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="row">
-                <h3>Event Details</h3>
-                <div class="row mb-4">
-                    <div class="col-lg-6 col-sm-12">
-                      <!-- Start:Weekdays-Dropdown input field -->
-                      <div class="form-outline">
+                <h3 class="my-3">Event Details</h3>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-outline">
                         <div class="row">
-                          <!--Start: from days to days -->
-                          <div class="col-12 col-lg-4">
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">From <span class="text-danger">*</span>
-                              </label>
-                              <ng-select bindLabel="name" placeholder="From"  formControlName="weekdays1">
-                                <!-- <ng-option *ngFor="let weekday1 of weekdays1" [value]="weekday1.dayId" >{{weekday1.day}}</ng-option> -->
-                            </ng-select>
-                              <!-- <div
-                              *ngIf="validator['weekdays1'].invalid &&  (isSubmitted || validator['weekdays1'].dirty) || validator['weekdays1'].touched">
-                              <span class="text-danger" *ngIf="validator['weekdays1'].errors?.['required']">This field is
-                                required</span>
-                                </div> -->
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">From <span class="text-danger">*</span>
+                                </label>
+                                <ng-select bindLabel="name" placeholder="From" formControlName="weekdays1" (change)="onweekDays1($event)">
+                                    <ng-option *ngFor="let weekday1 of weekdays1" [value]="weekday1.dayId" >{{weekday1.day}}</ng-option>
+                                </ng-select>
                             </div>
-                          </div>
-                          <div class="col-12 col-lg-4">
-                            <div class="mb-3">
-                              <label class="form-label fw-bold">To <span class="text-danger">*</span>
-                              </label>
-                              <ng-select bindLabel="name" placeholder="To"  formControlName="weekdays2">
-                                  <!-- <ng-option *ngFor="let weekday2 of weekdays2" [value]="weekday2.dayId" [disabled]="weekdays1Id == weekday2.dayId">{{weekday2.day}}</ng-option> -->
-                              </ng-select>
-                              <!-- <div
-                              *ngIf="validator['weekdays2'].invalid &&  (isSubmitted || validator['weekdays2'].dirty) || validator['weekdays2'].touched">
-                              <span class="text-danger" *ngIf="validator['weekdays2'].errors?.['required']">This field is
-                                required</span>
-                                </div> -->
+                            <div class="col-lg-6">
+                                <label class="form-label fw-bold">To <span class="text-danger">*</span>
+                                </label>
+                                <ng-select bindLabel="name" placeholder="To" formControlName="weekdays1">
+                                    <ng-option *ngFor="let weekday2 of weekdays1" [value]="weekday2.dayId" [disabled]="weekdays1Id == weekday2.dayId">{{weekday2.day}}</ng-option>
+                                </ng-select>
                             </div>
-                          </div>
-                          <div class="col-12 col-lg-4">
-                            <div class="m-3">
-                            <div class="form-outline">
-                                <input type="text" class="form-control"placeholder="Artist Name" formControlName="artistName" />
-                            </div>
-                          </div>
-                          </div>
-                             <!--End: from days to days -->
                         </div>
-                      </div>
-                      <!-- End:Weekdays-Dropdown input field -->
-                      
                     </div>
-                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-outline">
+                        <label class="form-label fw-bold">Event Rate <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Event Rate"
+                            formControlName="eventRate" [ngClass]="{'is-invalid': validator['eventRate'].invalid &&  (isSubmitted || validator['eventRate'].dirty || validator['eventRate'].touched), 'is-valid': validator['eventRate'].valid &&  (isSubmitted || validator['eventRate'].dirty || validator['eventRate'].touched)}"/>
+                            <div
+                            *ngIf="validator['eventRate'].invalid && (isSubmitted || validator['eventRate'].dirty || validator['eventRate'].touched)">
+                            <span class="text-danger" *ngIf="validator['eventRate'].errors?.['required']">This field is
+                                required</span>
+                            <span class="text-danger" *ngIf="validator['eventRate'].errors?.['pattern']">Enter numbers only</span>
+                        </div>
+                        </div>
+                </div>
             </div>
-
-        </form>
+            </div>
+    </form>
+    <!-- End: Form & It's Validation -->
     </div>
 </section>
